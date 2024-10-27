@@ -1,0 +1,11 @@
+#+title: Index
+#+author: jnkk
+#+date: <2024-10-27 Sun 23:06>
+
+
+* Index for My Digital Garden
+
+** Configurations and or steps on how to make this
+*** Programs and apps
+
+** OS/Linux
