@@ -1,11 +1,219 @@
-#+title: Index
+:PROPERTIES:
+:ID:       fca93980-a2e1-45c1-b5e0-063f8f0a95fc
+:END:
+#+title: Digital Garden
 #+author: jnkk
 #+date: <2024-10-27 Sun 23:06>
 
 
 * Index for My Digital Garden
 
-** Configurations and or steps on how to make this
-*** Programs and apps
+** Configurations and or steps on how to make this org document
 
-** OS/Linux
+The current structure of my org file(s) is only =index.org=.
+
+
+*** Operating system(s), programs and apps
+
+Debian 12 and arch is what I am familiar with. Mainly Debian 12, using the XFCE Window Manager. KDE Plasma is beautiful but taxing on current hardware.
+
+Don't use NixOS, still have not figured it out yet. Using the Nix package manager using the Determinate Systems' Nix installation is okay. It does not break your main system.
+
+Tried installing other Linux distros, like alpine, void linux, gnu guix (this is similiar to NixOS. Also has its own package manager that you can install inside a linux distro. Using the "gnu guix binary," google that) but the hardware right now is not enough computing power. Still rocking a 4 core laptop with 12 gigs of RAM.
+
+Smallest footprint by far is alpinelinux, but still learning it using 2 core in Virt-Manager.
+Might try Xubuntu, Lubuntu, Linux Lite, antiX.
+Might also try Windows Manager, since its only 1 display output inside a VM.
+
+These are the programs or apps that I am using to make this.
+The learning process is long and hard, with a lot of reading. Might as well document what I have learned.
+Learning the emacs and vim keybindings, not all a once. Slowly.
+
+First it was opening a file. Copy pasting things.
+Also learning neovim using kickstart.nvim helper scripts.
+=:Tutor= is helpful information. Have yet to read it all.
+
+Using doom emacs is how I write this, but using Visual Studio Code to write code. I am already used to the display, layout and familiarity. Maybe someday all of this will be inside emacs.
+
+Putting most what I've learn in a writing. The process of learning is writing.
+
+**** Debian 12, Emacs, Doom, Nvim, as the basics.
+
+This might be the default OS.
+If you are planning not adding office stuff. Don't tick the "Desktop" settings. Just pick the Desktop Manager.
+
+Using `homebrew` might not be the best solution, but at least it is stable enough.
+
+Emacs 29.4 installed using homebrew. Because it was a newer version compared the apt package manager.
+
+Adding Doom Emacs for "better integerations" of learning. Still got a long way......
+Tried spacemacs, but it doesn't feel right.
+
+Install cloudflare-warp.
+
+***** Steps for installing Debian 12 in current hardware
+
+- Go to /etc/apt/
+- There is a file called sourcelist, make sure to backup first.
+- Add =contrib= and =non-free=
+
+#+begin_src
+deb http://deb.debian.org/debian bookworm main non-free-firmware contrib non-free
+deb-src http://deb.debian.org/debian bookworm main non-free-firmware contrib non-free
+
+deb http://deb.debian.org/debian-security bookworm-security main  non-free-firmware contrib non-free
+deb-src http://deb.debian.org/debian-security bookworm-security main non-free-firmware contrib non-free
+
+deb http://deb.debian.org/debian bookworm-updates main non-free-firmware contrib non-free
+deb-src http://deb.debian.org/debian bookworm-updates main non-free-firmware contrib non-free
+#+end_src
+
+- Then:
+
+#+begin_src
+sudo apt update && sudo apt install curl wget git micro btop build-essential cmake gcc clang ripgrep
+#+end_src
+
+- Go to =.bashrc= and add these XDG BASE DIRECTORIES.
+- To "manage" these, go to [https://github.com/b3nj5m1n/xdg-ninja[Github:XDG-Ninja]]
+
+#+begin_src
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_STATE_HOME="$HOME/.local/state"
+#+end_src
+
+- Create ssh-key
+
+#+begin_src
+ssh-keygen -t rsa
+#+end_src
+
+- Set your git username and email
+
+#+begin_src
+git config --global user.name "<YOURUSERNAME>"
+git config --global user.email "<YOUREMAIL>"
+#+end_src
+
+- As of October 2024.
+- This is the command for installing homebrew in Linux:
+
+#+begin_src
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#+end_src
+
+- Lists of apps to install using homebrew:
+- This is the latest version compared to default in APT.
+
+#+begin_src
+go lazygit fzf zoxide fd bat emacs ruff eza
+#+end_src
+
+- Change shell to fish, but this is just a suggestion. Still using bash.
+- Still working on how to configure it.
+
+- This is the /bash_aliases/ file. Just copy and paste it in a new file called =bash_aliases=
+- Hope this does not change the '' format.
+
+  #+begin_src
+alias vi='nvim'
+alias vim='nvim'
+alias lsa='ls -al'
+alias lsl='ls -l'
+alias mc='micro'
+alias bashrc='micro .bashrc'
+alias bashalias='micro .bash_aliases'
+alias gs='git status'
+alias pg='ping4 -i 5 google.com'
+alias pacs='apt search'
+alias ins='sudo apt install'
+alias ‘cd..'=‘cd ..'
+alias '..'='cd ..'
+alias sb='source .bashrc'
+alias up='sudo apt update && sudo apt upgrade'
+alias mi='micro'
+alias st='speedtest-cli'
+alias prt='ping4 192.168.0.1'
+alias wcc='warp-cli connect'
+alias wcd='warp-cli disconnect'
+alias wcs='warp-cli status'
+alias update='sudo apt update && brew update'
+alias upgrade='sudo apt upgrade && brew upgrade'
+alias lg='lazygit'
+alias mkdp='mkdir -p'
+alias panas='curl wttr.in'
+alias mati='conda deactivate'
+alias dots='cd .config/home-manager'
+alias homeconf='cd .config/home-manager'
+alias config='cd .config'
+alias hmsf='home-manager switch —flake .'
+alias notes='cd ~/projects/notes/digital-garden/content'
+alias doomemacs='~/.config/emacs/bin/doom'
+alias org='cd org/'
+
+#+end_src
+
+
+
+****** Arch Configurations and steps
+
+The downside of running arch is that there's no cloudflare warp-cli :(
+
+No need for brew, since arch is a rolling release.
+All packages are mainly up to date compared to Debian.
+
+If it doesn't exist in pacman. Try the YAY repo.
+
+#+begin_src
+sudo pacman -S ttf-jetbrains-mono-nerd ttf-liberation ttf-ubuntu-font-family ttf-anonymous-pro \\
+ttf-dejavu ttf-bitstream-vera adobe-source-sans-pro-fonts noto-fonts noto-fonts-cjk hunspell-en_US \\
+aspell-en gst-plugins-good gst-libav gufw dnscrypt-proxy p7zip tar unzip xdg-user-dirs clang cmake \\
+zed rbenv go npm nodejs git github-cli git curl wget eza bat fzf fd zoxide vim micro btop base-devel bash-completion \\
+gnome-keyring man less cronie xdg-desktop-portal \\ xdg-desktop-portal-gtk freetype2 fontconfig pkg-config make libxcb libxkbcommon python pkgfile --needed
+#+end_src
+
+***** Emacs, Doom Emacs. Neovim + kickstart.nvim
+
+After installing emacs using homebrew.
+Go to their [https://github.com/doomemacs/doomemacs[github]]
+Still learning this.
+Steps I took is mainly around org and org-mode and its configurations.
+In the future, maybe adding a new org entry on how to use and configure doom emacs.
+
+Downloading nvim or neovim using homebrew.
+Go to [https://github.com/nvim-lua/kickstart.nvim[Kickstart]]
+
+
+**** Learning to build and design website.
+
+There are a lot of languages to make websites, not including tools for it.
+
+But first, let's learn the basics.
+Using /react/ or /tailwindcss/. JavaScript framework is the main way to make a beautiful modern website designs.
+Using homebrew, install the /node/ package. This will install node and npm.
+npm is the main command for installing node_modules.
+
+Django is also an alternative. Just add tailwindcss.
+You have all the things you need for a dynamic website.
+
+
+*** Current hopes and dreams. And the desire to learn.
+
+Building and owning a homelab server is a close dream after I upgrade from my current setup.
+Like proxmox, docker and maybe home-assistant for home automation.
+FreeBSD jail or bhyve (pronounce beehive).
+
+Mechanical keyboard is number two, after upgrading pc hardware.
+Got my eyes on keychron and Logitech MX Mechanical.
+
+Hopefully using at least an 8 core, 16 threads with a minimum of 32 gigs of RAM. So I can learn and do tests much easier.
+AMD 5700 is reasonable for the current price.
+
+The next gen using DDR5 generation bumps up the price a lot more.
+
+
+*** TODO
+
+- Linking 2 org files together using "UUID". See the tag at the top of the org file using =:ID:=
