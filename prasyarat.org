@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       5ead806d-3ace-4600-85ca-13101ec602c9
+:END:
+#+title: Prasyarat
+#+date: <2024-10-28 Mon>
+#+author: jnkk
+#+startup: content
+
+* Prasyarat Informasi Teknologi
+
+** Operating System

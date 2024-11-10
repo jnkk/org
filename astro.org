@@ -1,0 +1,22 @@
+#+title: Astro
+
+
+* TODO Type of website
+
+There are 2 main type of websites.
+- Static, which the user or in this case the "maker" can modify the contents. Like a blog, or a company website.
+
+- Dynamic, which contains databases. Each of the users can create, delete and modify its content.
+  Like a forum/discussion board or social media.
+
+** Static Website using Astro.
+
+Follow their documentations to create a blog.
+
+
+** Dynamic Website using Django.
+
+Django "workflows."
+
+There are a lot going on in django, NOT including the frontend. Only backend.
+Once the frontend is "displayed" properly, I hope it will become easier.

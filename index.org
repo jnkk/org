@@ -4,6 +4,7 @@
 #+title: Digital Garden
 #+author: jnkk
 #+date: <2024-10-27 Sun 23:06>
+#+startup: content
 
 
 * Index for My Digital Garden
@@ -17,13 +18,15 @@ The current structure of my org file(s) is only =index.org=.
 
 Debian 12 and arch is what I am familiar with. Mainly Debian 12, using the XFCE Window Manager. KDE Plasma is beautiful but taxing on current hardware.
 
+#+begin_quote
 Don't use NixOS, still have not figured it out yet. Using the Nix package manager using the Determinate Systems' Nix installation is okay. It does not break your main system.
 
 Tried installing other Linux distros, like alpine, void linux, gnu guix (this is similiar to NixOS. Also has its own package manager that you can install inside a linux distro. Using the "gnu guix binary," google that) but the hardware right now is not enough computing power. Still rocking a 4 core laptop with 12 gigs of RAM.
 
 Smallest footprint by far is alpinelinux, but still learning it using 2 core in Virt-Manager.
-Might try Xubuntu, Lubuntu, Linux Lite, antiX.
+Might try MX-Linux, Xubuntu, Lubuntu, Linux Lite, antiX.
 Might also try Windows Manager, since its only 1 display output inside a VM.
+#+end_quote
 
 These are the programs or apps that I am using to make this.
 The learning process is long and hard, with a lot of reading. Might as well document what I have learned.
@@ -75,7 +78,7 @@ sudo apt update && sudo apt install curl wget git micro btop build-essential cma
 #+end_src
 
 - Go to =.bashrc= and add these XDG BASE DIRECTORIES.
-- To "manage" these, go to [https://github.com/b3nj5m1n/xdg-ninja[Github:XDG-Ninja]]
+- To "manage" these, go to [[https://github.com/b3nj5m1n/xdg-ninja][Github:XDG-Ninja]]
 
 #+begin_src
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -108,7 +111,7 @@ git config --global user.email "<YOUREMAIL>"
 - This is the latest version compared to default in APT.
 
 #+begin_src
-go lazygit fzf zoxide fd bat emacs ruff eza
+go lazygit fzf zoxide fd bat emacs eza
 #+end_src
 
 - Change shell to fish, but this is just a suggestion. Still using bash.
@@ -174,16 +177,24 @@ zed rbenv go npm nodejs git github-cli git curl wget eza bat fzf fd zoxide vim m
 gnome-keyring man less cronie xdg-desktop-portal \\ xdg-desktop-portal-gtk freetype2 fontconfig pkg-config make libxcb libxkbcommon python pkgfile --needed
 #+end_src
 
+****** Alpine Linux
+
+By inital testing on a VM. It is really lightweight.
+
+****** NixOS
+
+Use it in a VM or seperate machine.
+
 ***** Emacs, Doom Emacs. Neovim + kickstart.nvim
 
 After installing emacs using homebrew.
-Go to their [https://github.com/doomemacs/doomemacs[github]]
+Go to their [[https://github.com/doomemacs/doomemacs][github]]
 Still learning this.
 Steps I took is mainly around org and org-mode and its configurations.
 In the future, maybe adding a new org entry on how to use and configure doom emacs.
 
 Downloading nvim or neovim using homebrew.
-Go to [https://github.com/nvim-lua/kickstart.nvim[Kickstart]]
+Go to [[https://github.com/nvim-lua/kickstart.nvim][kickstart.nvim]]
 
 
 **** Learning to build and design website.
@@ -198,6 +209,7 @@ npm is the main command for installing node_modules.
 Django is also an alternative. Just add tailwindcss.
 You have all the things you need for a dynamic website.
 
+Lets try [[https://astro.build][Astro]]
 
 *** Current hopes and dreams. And the desire to learn.
 
@@ -217,3 +229,53 @@ The next gen using DDR5 generation bumps up the price a lot more.
 *** TODO
 
 - Linking 2 org files together using "UUID". See the tag at the top of the org file using =:ID:=
+
+
+** Hardware
+
+*** "Budget" hardware
+
+These are from [[https://www.rakitan.com][rakitan.com]] as of 1/11/2024
+
+| Component  | Part                       |    Price |
+|------------+----------------------------+----------|
+| CPU        | AMD 5700X                  |  2650000 |
+| Mobo       | ASRock B550 Steel Legend   |  2530000 |
+| CPU Cooler | ID-Cooling A720            |  1000000 |
+| RAM        | Corsair 3600 64GB (32gbx2) |  2300000 |
+| GPU        | Asrock Radeon 7600 XT 16GB |  5500000 |
+| PSU        | Seasonic 750 Watt          |  2200000 |
+| Case       | Corsair 4000D Airflow      |  1350000 |
+| NVME       | Adata SX6000 Lite 1TB      |   775000 |
+| ---------- | -------------------------- |  ------- |
+| Total      |                            | 18305000 |
+#+TBLFM: $3=vsum(@2..@9)
+
+#+begin_quote name=org-mode-formulae
+To add numbers from a column. First is how to know which row and column it is.
+
+Row displayed using an "@" symbol, and a column is "$" symbol.
+
+Using the command => C-c ?
+Displays the rows and columns
+
+Using the "formulae" to add:
+- Go to the location to which you want to input.
+
+- C-c =
+
+- Is a command to use a formulae. The display output: "$3=".
+  This means on the column 3.
+
+- To add numbers, use the vsum.
+  The displayed output:=> $3=
+
+  To complete it. Put the function you want to use. Like vsum, to add.
+  $3=vsum(@2..@9)
+
+- $3=vsum(@2..@9) means adding numbers from @2 to @9.
+  DON'T FORGET the "()" symbol.
+
+#+end_quote
+
+*** Dream hardware
