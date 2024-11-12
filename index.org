@@ -74,7 +74,7 @@ deb-src http://deb.debian.org/debian bookworm-updates main non-free-firmware con
 - Then:
 
 #+begin_src
-sudo apt update && sudo apt install curl wget git micro btop build-essential cmake gcc clang ripgrep
+sudo apt update && sudo apt install curl wget git micro btop build-essential cmake gcc clang balena-etcher
 #+end_src
 
 - Go to =.bashrc= and add these XDG BASE DIRECTORIES.
@@ -90,7 +90,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 - Create ssh-key
 
 #+begin_src
-ssh-keygen -t rsa
+ssh-keygen -t ed25519
 #+end_src
 
 - Set your git username and email
@@ -100,7 +100,17 @@ git config --global user.name "<YOURUSERNAME>"
 git config --global user.email "<YOUREMAIL>"
 #+end_src
 
-- As of October 2024.
+- As of October 2024, I've been using Homebrew.
+- Try Determinate Systems' Nix Package Manager installation.
+- Install Devbox. It replaces Homebrew using Nix package manager.
+
+- For better software management outside 'core' Debian packages like `emacs`. APT in Debian it not the latest version. Stable OS with the latest programs can be achieved by using nix home-manager.
+- This is the Determinate Systems' Nix installation:
+
+#+begin_src
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+#+end_src
+
 - This is the command for installing homebrew in Linux:
 
 #+begin_src
@@ -111,7 +121,7 @@ git config --global user.email "<YOUREMAIL>"
 - This is the latest version compared to default in APT.
 
 #+begin_src
-go lazygit fzf zoxide fd bat emacs eza
+go lazygit fzf zoxide fd bat emacs eza ripgrep
 #+end_src
 
 - Change shell to fish, but this is just a suggestion. Still using bash.
@@ -151,7 +161,7 @@ alias mati='conda deactivate'
 alias dots='cd .config/home-manager'
 alias homeconf='cd .config/home-manager'
 alias config='cd .config'
-alias hmsf='home-manager switch —flake .'
+alias hmsf='home-manager switch --flake .'
 alias notes='cd ~/projects/notes/digital-garden/content'
 alias doomemacs='~/.config/emacs/bin/doom'
 alias org='cd org/'
@@ -163,6 +173,7 @@ alias org='cd org/'
 ****** Arch Configurations and steps
 
 The downside of running arch is that there's no cloudflare warp-cli :(
+Can't open reddit.
 
 No need for brew, since arch is a rolling release.
 All packages are mainly up to date compared to Debian.
@@ -185,16 +196,50 @@ By inital testing on a VM. It is really lightweight.
 
 Use it in a VM or seperate machine.
 
+
+***** Nix Home-Manager and Package Manager
+
+Maybe it is better to use nix home-manager to manage my "dotfiles" and dev environment. Still learning, in case something breaks. By using git, I can "rollback" by using version control. See the git history for changes.
+
+- Use Determinate Systems' Nix Installation:
+
+  #+begin_src
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+  #+end_src
+
+- If successful, run the `nix flake --version`
+
+- Create a folder for your home-manager configs
+
+- Initialize the home-manager OR cloning the github repo:
+  #+begin_src
+nix run home-manager -- init --switch .
+  #+end_src
+
+- Clone the [[https://github.com/jnkk/debian-nix-home-manager][Debian-nix-home-manager]] repo.
+
+******* Nix Home-Manager modules
+
+Start from the fondamental thing... BASH terminal, or fish or zsh. Or NU and starship.
+
+
+******** BASH Terminal
+********* Cli Tools
+******** Emacs for Org-mode
+******** MICRO Editor
+********* Neovim
+******** Devbox or direnv
+********* Django Python
+
 ***** Emacs, Doom Emacs. Neovim + kickstart.nvim
 
-After installing emacs using homebrew.
-Go to their [[https://github.com/doomemacs/doomemacs][github]]
-Still learning this.
-Steps I took is mainly around org and org-mode and its configurations.
+- After installing emacs using homebrew.
+- Go to the doomemacs' [[https://github.com/doomemacs/doomemacs][github]].
+- Steps I took is mainly around org and org-mode and its configurations.
 In the future, maybe adding a new org entry on how to use and configure doom emacs.
 
-Downloading nvim or neovim using homebrew.
-Go to [[https://github.com/nvim-lua/kickstart.nvim][kickstart.nvim]]
+- Download nvim or neovim using homebrew.
+- Go to [[https://github.com/nvim-lua/kickstart.nvim][kickstart.nvim]]
 
 
 **** Learning to build and design website.
