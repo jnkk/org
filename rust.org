@@ -1,0 +1,274 @@
+
+#+title: Rust Programming Language
+
+
+* Rust Programming Language
+
+Notes for learning the rust language using the official book.
+
+Current version is 1.82 version.
+
+[[https://doc.rust-lang.org/std/index.html][Rust Docs]] it describes the low level stuff.
+
+** Rust jargon explanation from ChatGPT
+
+These are "high level" concepts.
+Not including the low level stuff like heap-allocation or memory stuff.
+
+*** Variables
+
+#+begin_quote
+A variable in Rust is a way to store a value that can be accessed and manipulated throughout your code. In Rust, variables are immutable by default, meaning once a value is assigned to a variable, you cannot change it unless you explicitly make it mutable.
+#+end_quote
+
+In short, variable is a "name" of things.
+
+There are 2 types of variable in Rust.
+
+Immutable:
+
+This cannot change.
+
+#+begin_src
+let x = 5;
+#+end_src
+
+Mutable example:
+
+This can change by using `mut`.
+
+#+begin_src
+let mut x = 5;
+#+end_src
+
+*** Function
+
+#+begin_quote
+A function in Rust is a block of code that can take input (parameters), do something with that input, and possibly return a value.
+#+end_quote
+
+Code example:
+
+#+begin_src
+fn greet(name: &str) -> String {
+    let greeting = format!("Hello, {}!", name);
+    greeting
+}
+#+end_src
+
+Code explanation:
+
+#+begin_quote
+    fn: Keyword used to define a function.
+
+    greet: Name of the function.
+
+    (name: &str): This is the parameter part, indicating that greet takes a string slice (&str) as input.
+
+    -> String: The function will return a String (a heap-allocated string in Rust).
+
+    The function returns the greeting message.
+#+end_quote
+
+A function is kinda like how you "command" a given task or "steps to take."
+Take cooking analogy. There are steps to take before actually cooking on fire.
+Chop the vegetables, mixing flour and water. Then adding salt.
+
+
+*** Data Types
+
+[[https://doc.rust-lang.org/book/ch03-02-data-types.html][Rust Book]]
+
+#+begin_quote
+Every value in Rust is of a certain data type, which tells Rust what kind of data is being specified so it knows how to work with that data. We’ll look at two data type subsets: scalar and compound.
+#+end_quote
+
+Rust is a strongly typed language, meaning that everything has to be declared as a "state."
+Is it a character, an integer or a float number. Different from other programming language like python.
+
+You have to specify the type of data.
+
+
+*** Ownership
+
+#+begin_quote
+One of the key concepts in Rust is ownership, which determines how memory is managed. Rust uses a unique system of ownership to ensure memory safety without a garbage collector.
+
+Ownership rules:
+    - Each value in Rust has a variable that owns it.
+    - There can only be one owner at a time.
+    - When the owner goes out of scope, the value is automatically dropped (memory is freed).
+#+end_quote
+
+#+begin_src
+fn main() {
+    let s1 = String::from("Hello");  // s1 owns the string
+    let s2 = s1;  // Ownership is moved from s1 to s2
+
+    // println!("{}", s1);  // This would cause a compile-time error because s1 no longer owns the string
+    println!("{}", s2);  // This works because s2 owns the string now
+}
+#+end_src
+
+When ownership is transferred (like s1 to s2), s1 is no longer valid.
+
+
+
+*** Borrowing and References
+
+This is what makes Rust unique and safe from a memory standpoint.
+The borrow-checker.
+
+#+begin_quote
+Rust allows you to borrow data using references. A reference is like a pointer, but it comes with rules that prevent data races and ensure safety.
+#+end_quote
+
+Immutable example:
+#+begin_src
+let x = 5;
+let y = &x;  // y is an immutable reference to x
+println!("{}", y);  // This works fine
+#+end_src
+
+Mutable example:
+#+begin_src
+let mut x = 5;
+let y = &mut x;  // y is a mutable reference to x
+*y += 1;         // Dereference y to modify x
+println!("{}", x);  // Prints: 6
+#+end_src
+
+
+*** Struct
+
+#+begin_qoute
+A struct is a custom data type that lets you group related data together.
+#+end_qoute
+
+Struct definition:
+#+begin_src
+struct Person {
+    name: String,
+    age: u32,
+}
+
+let person = Person {
+    name: String::from("Alice"),
+    age: 30,
+};
+#+end_src
+
+#+begin_quote
+You can create instances of a struct and access its fields using dot notation:
+
+#+begin_src
+println!("{} is {} years old.", person.name, person.age);
+#+end_src
+
+#+end_quote
+
+*** Enum
+
+#+begin_quote
+An enum is a way to define a type that can be one of several variants. It's useful for handling a set of related but different possibilities.
+
+#+begin_src
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
+let move_dir = Direction::Up;
+
+#+end_src
+
+Enums are often used with match statements to pattern match on different variants.
+
+#+end_quote
+
+*** Match
+
+#+begin_quote
+The match keyword is Rust’s way of performing pattern matching, which is very powerful and similar to a switch-case statement in other languages, but much more expressive.
+
+#+begin_src
+let number = 13;
+match number {
+    1 => println!("One"),
+    2..=5 => println!("Between two and five"),
+    _ => println!("Something else"),
+}
+#+end_src
+Here, `_` is a catch-all pattern.
+#+end_quote
+
+
+*** Concurrency
+
+#+begin_quote
+Rust makes it easier to write safe concurrent code by using its ownership system. Rust provides threads, async/await, and channels for handling concurrent execution without worrying about data races.
+
+#+begin_src
+use std::thread;
+
+let handle = thread::spawn(|| {
+    println!("Hello from a new thread!");
+});
+
+handle.join().unwrap();  // Wait for the thread to finish
+
+#+end_src
+
+Async/Await: Rust has asynchronous programming built into the language, allowing you to write concurrent code that doesn't block threads.
+
+#+end_quote
+*** Lifetime
+
+#+begin_quote
+Lifetimes are a way of expressing the scope of references in Rust. They are used to prevent dangling references (when you reference memory that is no longer valid).
+
+#+begin_src
+fn longest<'a>(s1: &'a str, s2: &'a str) -> &'a str {
+    if s1.len() > s2.len() {
+        s1
+    } else {
+        s2
+    }
+}
+#+end_src
+
+The ``a` here is a lifetime annotation that ensures that both `s1` and `s2` live at least as long as the returned string.
+#+end_quote
+
+*** Error handling
+
+#+begin_quote
+Rust has a unique way of handling errors using the Result and Option types:
+1. Option: Represents a value that could be Some(T) or None (e.g., when a value might not exist).
+
+   #+begin_src
+   let some_value: Option<i32> = Some(42);
+   let no_value: Option<i32> = None;
+   #+end_src
+
+2. Result: Represents either success (Ok(T)) or failure (Err(E)).
+
+   #+begin_src
+    fn divide(x: i32, y: i32) -> Result<i32, String> {
+      if y == 0 {
+          Err(String::from("Cannot divide by zero"))
+      } else {
+          Ok(x / y)
+      }
+    }
+
+   #+end_src
+
+You can use match or the ? operator to handle these types.
+#+end_quote
+
+*** Summary
+
+These are just some of the key terms and concepts you'll encounter while learning Rust. The language has a steep learning curve, but its features—like ownership, borrowing, and concurrency—make it powerful and safe for systems-level programming. As you go deeper, you'll encounter more advanced topics like generics, macros, and the extensive Rust ecosystem for building web servers, applications, and tools.
